@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>PR-Agent 实际试用报告</title>
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;max-width:960px;margin:40px auto;padding:0 20px;line-height:1.65;color:#202124} h1,h2{line-height:1.25} table{border-collapse:collapse;width:100%;margin:12px 0 24px} th,td{border:1px solid #d9d9d9;padding:8px;text-align:left;vertical-align:top} code{background:#f3f4f6;padding:2px 4px;border-radius:3px} .ok{color:#137333}.warn{color:#b06000}.fail{color:#b3261e}.note{background:#f7f8fa;padding:12px 16px;border-left:4px solid #8ab4f8}
+  </style>
+</head>
+<body>
+<h1>Qodo PR-Agent 实际试用报告</h1>
+<p><strong>日期：</strong>2026-11-19　<strong>实验：</strong>E001 local agent quality loop</p>
+
+<h2>1. 目标</h2>
+<p>验证开源 PR-Agent 是否能够在个人可控环境中安装、提供可调用入口，并判断它能否在没有模型凭证时完成真实 PR Review。</p>
+
+<h2>2. 实际环境</h2>
+<table><tr><th>项目</th><th>结果</th></tr>
+<tr><td>主机</td><td>macOS，Python 3.10.10，Node.js 24.16.0</td></tr>
+<tr><td>Docker</td><td>Docker 29.2.1。Docker Desktop 在实验过程中启动成功。</td></tr>
+<tr><td>测试镜像</td><td><code>python:3.12-slim</code></td></tr>
+<tr><td>PR-Agent 包</td><td>PyPI 可见版本为 <code>0.50.0</code>，并列出历史版本。</td></tr>
+<tr><td>GitHub 源码克隆</td><td class="fail">主机侧因 DNS 无法解析 github.com 失败，未把源码假设为已获取。</td></tr>
+</table>
+
+<h2>3. 已实际执行的步骤</h2>
+<ol>
+<li>确认 Docker Desktop 可启动，<code>docker info</code> 返回 Server Version <code>29.2.1</code>。</li>
+<li>在临时 Python 容器中执行 <code>pip index versions pr-agent</code>，确认 PyPI 可访问，并观察到最新列出的版本为 <code>0.50.0</code>。</li>
+<li>尝试从官方 GitHub 仓库克隆源码。该步骤实际失败，错误为 <code>Could not resolve host: github.com</code>。</li>
+<li>尝试在临时容器中安装 <code>pr-agent==0.50.0</code> 并调用 CLI。安装过程超过单次试验时间窗口，未取得可采信的 CLI 输出，因此不把“CLI 可用”记为成功。</li>
+</ol>
+
+<h2>4. 凭证和能力边界</h2>
+<p class="note">本次没有使用任何 GitHub Token、OpenAI Key、Anthropic Key 或其他模型凭证，也没有伪造 PR Review 结果。</p>
+<table><tr><th>能力</th><th>本次结论</th></tr>
+<tr><td>安装包元数据</td><td class="ok">可从 PyPI 查询到版本信息。</td></tr>
+<tr><td>源码安装</td><td class="warn">被当前主机 DNS/网络阻断，未完成。</td></tr>
+<tr><td>CLI 帮助和本地入口</td><td class="warn">未获得足够稳定的安装完成结果，待后续重试。</td></tr>
+<tr><td>真实 PR Review</td><td class="warn">未执行。需要模型 API Key、仓库/PR 输入以及对应 GitHub 权限。</td></tr>
+<tr><td>GitHub Action</td><td class="warn">未执行。需要 GitHub Actions 环境和模型凭证，且应使用实验仓库。</td></tr>
+</table>
+
+<h2>5. 对产品方向的判断</h2>
+<ul>
+<li>PR-Agent 的个人试用门槛低于 AgentCore，不需要 AWS 企业账号。</li>
+<li>它适合作为“独立 PR Review 层”进行验证，而不是完整的 Issue 到 PR 开发团队。</li>
+<li>真实价值必须通过已知缺陷、隐藏回归测试和人工基准对比来验证，不能以 Review 评论数量作为质量指标。</li>
+<li>在没有模型凭证时，只能验证安装、配置和执行入口，不能声称已经验证了 Review 质量。</li>
+</ul>
+
+<h2>6. 后续可复现实验</h2>
+<pre><code># 在可访问 GitHub 的环境中执行
+docker run --rm -it -v "$PWD:/workspace" -w /workspace python:3.12-slim sh
+pip install pr-agent==0.50.0
+pr-agent --help
+
+# 真实 Review 前必须使用实验仓库和临时凭证
+# 不要挂载 ~/.ssh、~/.aws、浏览器目录或生产代码
+</code></pre>
+
+<h2>7. 清理记录</h2>
+<p>所有安装尝试使用临时 Docker 容器，没有写入主机 Python 环境，也没有保存凭证。源码克隆失败，没有残留有效源码副本。后续若产生 Docker 容器或卷，应在实验结束后执行 <code>docker rm</code> 和 <code>docker volume rm</code>，并把清理结果写入本报告。</p>
+
+<h2>8. 参考</h2>
+<ul>
+<li><a href="https://github.com/qodo-ai/pr-agent">Qodo PR-Agent GitHub</a></li>
+<li><a href="https://www.qodo.ai/formerly-qodo-merge/">Qodo Merge / Qodo 平台说明</a></li>
+</ul>
+</body>
+</html>
