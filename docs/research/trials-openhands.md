@@ -119,13 +119,23 @@ docker image rm ghcr.io/all-hands-ai/openhands:main
 - 尝试切换到 `RUNTIME=local`，发现镜像缺少 `tmux` 和 Playwright 浏览器依赖。
 - 已创建 `infra/openhands-local-runtime.Dockerfile`，补充 `tmux` 和 Playwright 依赖。
 
+### 复跑结果
+
+- 已完成 OpenHands 服务启动。
+- 已完成 模型配置、会话创建和 Agent Loop 启动。
+- 已完成 Docker Socket 临时挂载和运行时镜像构建阶段启动。
+- 未完成 二级 runtime 镜像构建后没有进入代码执行事件，未产生可审查 diff。
+- 未完成 最终测试和隐藏回归测试。
+
 ### 当前结论
 
-主流程仍未完成代码修改和最终测试。安装和服务启动不能被视为任务成功。
+本次证明了 OpenHands 的服务、模型配置、会话和 Agent Loop 可以启动，但没有证明代码修改效果。主流程仍被二级 runtime 镜像构建阶段阻塞，不能把这次运行计为任务成功。
 
 ### 需要的下一步
 
 优先使用 OpenHands 官方推荐的运行方式补齐二级沙箱，或确认允许挂载 Docker Socket。Docker Socket 会赋予容器较高的 Docker 守护进程控制权限，当前自动审批拒绝了该操作，因此没有绕过这一安全边界。
+
+本轮已获得临时挂载授权并完成清理。阻塞点从“权限不足”变为“二级 runtime 镜像构建未完成”。
 
 ## 决策影响
 
