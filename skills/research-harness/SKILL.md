@@ -7,6 +7,8 @@ description: Run reproducible research trials for AI software-engineering agents
 
 Use this skill when evaluating an AI coding agent, multi-agent workflow, verification product, or Harness methodology.
 
+For a full public-documentation-to-installation-to-screenshot trial of one component, use the more specific `skills/component-research/SKILL.md` workflow.
+
 ## Required outcome
 
 Produce a short Chinese HTML report that separates:
