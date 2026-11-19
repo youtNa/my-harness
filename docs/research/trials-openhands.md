@@ -105,6 +105,28 @@ docker image rm ghcr.io/all-hands-ai/openhands:main
 
 使用个人模型 API Key 或 OpenHands 个人方案，继续在同一个 disposable workspace 执行一个无敏感数据的最小任务。任务必须有一个公开测试和一个独立隐藏测试，并记录完整 diff、测试输出和 Agent 自评之间的差异。
 
+## 2026-11-19 主流程复跑记录
+
+### 任务
+
+在 `experiments/e001-local-agent-quality-loop/task-repo` 中修复 `slugify`。基线为 1 个失败测试、1 个通过测试，目标是将连续空白转换为一个连字符并移除首尾连字符。
+
+### 已执行
+
+- 已配置临时 Anthropic 模型环境变量，未读取或写入密钥。
+- 已通过 OpenHands API 创建会话并启动 Agent Loop。
+- 默认 Docker Runtime 在创建二级运行时容器时失败，因为主容器没有 Docker Socket。
+- 尝试切换到 `RUNTIME=local`，发现镜像缺少 `tmux` 和 Playwright 浏览器依赖。
+- 已创建 `infra/openhands-local-runtime.Dockerfile`，补充 `tmux` 和 Playwright 依赖。
+
+### 当前结论
+
+主流程仍未完成代码修改和最终测试。安装和服务启动不能被视为任务成功。
+
+### 需要的下一步
+
+优先使用 OpenHands 官方推荐的运行方式补齐二级沙箱，或确认允许挂载 Docker Socket。Docker Socket 会赋予容器较高的 Docker 守护进程控制权限，当前自动审批拒绝了该操作，因此没有绕过这一安全边界。
+
 ## 决策影响
 
 OpenHands 可以作为个人可运行的实现 Agent 和沙箱执行层。它不能单独作为交付质量保证，因此后续必须与独立 Review、隐藏测试和证据报告结合。

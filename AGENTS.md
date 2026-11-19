@@ -20,6 +20,7 @@ This repository investigates and prototypes quality harnesses for AI-assisted so
 - `experiments/` contains reproducible experiment definitions and scripts.
 - `artifacts/` contains generated reports that are safe to commit and contain no secrets.
 - `infra/` contains Docker and local-only setup files.
+- `skills/research-harness/` contains the reusable research-trial skill and Chinese HTML report template.
 
 ## Experiment protocol
 
