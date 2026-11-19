@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 软件交付质量 Harness 调研报告</title>
+  <style>
+    :root{color-scheme:light;--ink:#172033;--muted:#64748b;--line:#dbe3ef;--blue:#2563eb;--green:#15803d;--amber:#b45309;--bg:#f6f8fb}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}
+    main{max-width:980px;margin:0 auto;padding:40px 22px 70px}h1{font-size:34px;margin:0 0 8px}h2{margin-top:36px;font-size:22px}h3{font-size:17px;margin-bottom:4px}.meta{color:var(--muted)}
+    .hero,.card{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 4px 16px #1e3a8a0b}.hero{border-left:6px solid var(--blue)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}.stat{padding:16px;border-radius:12px;background:#eef4ff}.stat strong{display:block;font-size:28px;color:var(--blue)}
+    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line)}th{background:#f0f4fa}.ok{color:var(--green);font-weight:700}.warn{color:var(--amber);font-weight:700}
+    .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0}.step{background:#eaf1ff;border:1px solid #bfd3ff;padding:9px 12px;border-radius:10px}.arrow{color:var(--blue);font-weight:700}
+    code{background:#eef2f7;padding:2px 5px;border-radius:5px}a{color:var(--blue)}footer{margin-top:40px;color:var(--muted);font-size:13px}
+  </style>
+</head>
+<body><main>
+  <section class="hero"><h1>AI 软件交付质量 Harness</h1><div class="meta">竞品、论文与个人可执行试用报告 · 2026-11-19</div><p><strong>结论：</strong>不要先做“更多 Agent 写代码”，先做“证明代码值得合并”。</p></section>
+
+  <h2>成熟度判断</h2>
+  <div class="grid"><div class="stat"><strong>高</strong>单 Agent 编码</div><div class="stat"><strong>中高</strong>Issue → PR</div><div class="stat"><strong>中</strong>多 Agent 协作</div><div class="stat"><strong>中低</strong>独立质量验证</div></div>
+
+  <h2>建议产品闭环</h2>
+  <div class="flow"><span class="step">📥 Issue</span><span class="arrow">→</span><span class="step">🧾 验收条件</span><span class="arrow">→</span><span class="step">🤖 实现 Agent</span><span class="arrow">→</span><span class="step">🔍 独立 Review</span><span class="arrow">→</span><span class="step">🧪 沙箱验证</span><span class="arrow">→</span><span class="step">✅ 合并报告</span></div>
+
+  <h2>个人优先试用</h2>
+  <table><thead><tr><th>工具</th><th>用途</th><th>个人可行性</th><th>结论</th></tr></thead><tbody>
+    <tr><td>OpenHands</td><td>实现 Agent、Docker 沙箱</td><td class="ok">可本地运行</td><td>先试</td></tr>
+    <tr><td>Qodo PR-Agent</td><td>PR Review、质量门禁</td><td class="ok">GitHub Action / 自托管</td><td>先试</td></tr>
+    <tr><td>SWE-agent</td><td>软件工程 Agent 基线</td><td class="ok">Docker / 本地</td><td>对比试验</td></tr>
+    <tr><td>ProPR</td><td>Issue → PR、多 Agent 编排</td><td class="warn">配置成本较高</td><td>第二阶段</td></tr>
+    <tr><td>AgentCore</td><td>企业 Agent 运行时</td><td class="warn">需要 AWS 账户</td><td>暂不纳入个人首轮</td></tr>
+  </tbody></table>
+
+  <h2>试用报告</h2>
+  <ul><li><a href="./trials-openhands.html">OpenHands 本地 Docker 试用</a></li><li><a href="./trials-pr-agent.html">Qodo PR-Agent 试用</a></li><li><a href="./trials-swe-agent-propr.html">SWE-agent / ProPR 试用</a></li><li><a href="./trials-overview.md">试用总览与评分表</a></li></ul>
+
+  <h2>核心证据</h2>
+  <div class="card"><p>Agyn 证明了协调、研究、实现和 Review 角色组成的多 Agent 团队可以工作，但不能证明多 Agent 在所有项目上更可靠。</p><p>SWE-EVO 显示长周期软件演化能力明显弱于短任务基准。</p><p>SpecGuardBench 说明测试和验证器本身也需要被独立评估。</p></div>
+
+  <h2>当前决策</h2><div class="card"><strong>Test First</strong><p>先用 20 个真实 AI 生成 PR 比较现有 CI、人工 Review 和独立验证，验证能否发现真实缺陷并减少人工复核时间。</p></div>
+  <footer>完整背景和来源见 <a href="./ai-delivery-quality-harness.md">Markdown 主报告</a>。所有试用必须记录版本、命令、输出、失败和清理步骤。</footer>
+</main></body></html>

@@ -5,6 +5,8 @@
 ## 当前主报告
 
 - [AI 软件交付质量 Harness 竞品与可行性报告](./ai-delivery-quality-harness.md)
+- [AI 软件交付质量 Harness HTML 报告](./ai-delivery-quality-harness.html)
+- [开源工具试用总览](./trials-overview.md)
 
 ## 文档约定
 
