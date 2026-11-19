@@ -10,10 +10,10 @@
 
 | 工具 | 角色 | 本轮状态 | 报告 |
 |---|---|---|---|
-| OpenHands | 实现 Agent 和本地沙箱 | 进行中 | [OpenHands 试用](./trials-openhands.md) |
-| Qodo PR-Agent | PR Review 和质量门禁 | 进行中 | [PR-Agent 试用](./trials-pr-agent.md) |
-| SWE-agent | 软件工程 Agent 基线 | 进行中 | [SWE-agent 和 ProPR 试用](./trials-swe-agent-propr.md) |
-| ProPR | Issue 到 PR 编排 | 待确认 | [SWE-agent 和 ProPR 试用](./trials-swe-agent-propr.md) |
+| OpenHands | 实现 Agent 和本地沙箱 | 进行中 | [OpenHands 试用](./trials-openhands.html) |
+| Qodo PR-Agent | PR Review 和质量门禁 | 进行中 | [PR-Agent 试用](./trials-pr-agent.html) |
+| SWE-agent | 软件工程 Agent 基线 | 进行中 | [SWE-agent 和 ProPR 试用](./trials-swe-agent-propr.html) |
+| ProPR | Issue 到 PR 编排 | 待确认 | [SWE-agent 和 ProPR 试用](./trials-swe-agent-propr.html) |
 | AgentCore | 企业运行时 | 暂不纳入个人试用 | [主报告](./ai-delivery-quality-harness.md) |
 
 ## 统一任务集
