@@ -7,6 +7,8 @@ description: Research and trial an AI software component from public documentati
 
 Use this skill when evaluating an agent, coding tool, runtime, Harness, plugin, SDK, or other software component.
 
+Read [evaluation-contract.md](references/evaluation-contract.md) before running a trial. It is the shared minimum contract for all Research work in this repository.
+
 ## Required outcome
 
 Create a Chinese HTML report that answers:
