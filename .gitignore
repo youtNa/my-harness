@@ -1,0 +1,19 @@
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local experiment state
+.venv/
+node_modules/
+__pycache__/
+.pytest_cache/
+experiments/**/runs/
+artifacts/private/
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
